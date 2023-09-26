@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>FiftyFlips</title>
+</head>
+<body>
+  <br>
+  An unfair coin (potentially EXTREMELY unfair) will be flipped fifty times. Your goal is to correctly predict as many of these flips as possible, by deducing the nature of the unfairness as quickly as possible.
+  <br>
+  <br>
+  <br>
+  <button onclick="flip('Heads')">Predict Heads</button> <button onclick="flip('Tails')">Predict Tails</button>
+  <br>
+  <br>
+  <div id="results">
+  </div>
+  <br>
+  <br>
+  <div id="score">
+  </div>
+  <br>
+  <br>
+  <div id="theRule">
+  </div>
+  <br>
+  <br>
+  <br>
+  Record:
+  <br>
+  <br>
+  <div style="height: 30vh; width: 300px; overflow: auto;" id="record">
+  FLIP #,PREDICTED,ACTUAL
+  </div>
+  <br>
+
+<script id="jsbin-javascript">
+
+flipno=0
+correctno=0
+
+predicteds=[]
+actuals=[]
+
+function flip(predicted){
+ 
+ if (flipno<50){
+  
+  flipno+=1
+  
+  //Figure out actual
+  
+  random = Math.random()
+  if (random < 0.3) {
+    actual = "Tails"
+  } else {
+    actual = "Heads"
+  }
+  //
+  
+  predicteds.push(predicted)
+  actuals.push(actual)
+  if (predicted==actual){
+   correctno+=1
+  }
+   
+  
+  //Update results
+  
+  document.getElementById("results").innerHTML = ("On flip "+flipno+", you predicted " + predicted + "; the coin came down " + actual +".")
+  document.getElementById("score").innerHTML = ("You guessed " + correctno + "/" + flipno +" correctly.")
+  document.getElementById("record").innerHTML += ("<br>"+flipno+","+predicted+","+actual)
+  
+  //Reveal rule
+  
+  if (flipno==50){
+   document.getElementById("theRule").innerHTML = 'The rule was: <b>"For all flips, Heads has a probability of 70%."</b>'
+  }
+ 
+ }
+}
+
+</script>
+</body>
+</html>
